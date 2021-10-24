@@ -1,3 +1,6 @@
+from typing import Dict, Any
+
+
 class FilaPrioritaria:
     """Representa uma fila normal"""
 
@@ -31,14 +34,15 @@ class FilaPrioritaria:
         return f"Cliente atual: {cliente_atual}, dirija-se ao caixa: {caixa}"
 
     def estatistica(self, dia: str, agencia: int, flag: str):
+        estatistica: Dict[str, Any] = {}
+
         if flag != "detail":
-            estatistica = {f"{agencia}-{dia}": len(self.clientes_atendidos)}
+            estatistica[f"{agencia}-{dia}"] = len(self.clientes_atendidos)
         else:
-            estatistica = {
-                "dia": dia,
-                "agencia": agencia,
-                "clientes_atendidos": self.clientes_atendidos,
-                "quantidade_clientes_atendidos": len(self.clientes_atendidos)
-            }
+            estatistica["dia"] = dia,
+            estatistica["agencia"] = agencia
+            estatistica["clientes_atendidos"] = self.clientes_atendidos
+            estatistica["quantidade_clientes_atendidos"] = \
+                len(self.clientes_atendidos)
 
         return estatistica

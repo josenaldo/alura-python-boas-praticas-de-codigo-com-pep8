@@ -1,3 +1,5 @@
+from typing import Dict, Any
+
 import pytest
 
 from src.fila_prioritaria import FilaPrioritaria
@@ -63,7 +65,7 @@ class TestFilaPrioritaria:
 
         estatisticas = fila.estatistica("10/01/1993", 198, "detail")
 
-        estatistica_esperada = {
+        estatistica_esperada: Dict[str, Any] = {
             "dia": "10/01/1993",
             "agencia": 198,
             "clientes_atendidos": ["PR1", "PR2", "PR3"],

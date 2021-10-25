@@ -2,7 +2,9 @@ from src.fila_base import FilaBase
 
 
 class FilaPrioritaria(FilaBase):
-    """ Representa uma fila de atendimento para clientes que necessitam de prioridade """
+    """ Representa uma fila de atendimento para clientes que necessitam
+    de prioridade
+    """
 
     TAMANHO_MAXIMO_DA_FILA = 200
 

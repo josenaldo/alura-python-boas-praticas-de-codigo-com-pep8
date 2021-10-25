@@ -11,19 +11,21 @@ class TestFilaPrioritaria:
     def fila(self):
         return FilaPrioritaria()
 
-    def test_fila_prioritaria_deve_ser_criada_com_tamanho_inicial_0(self, fila):
+    def test_deve_ser_criada_com_tamanho_inicial_0(self, fila):
         assert fila.tamanho == 0
 
-    def test_fila_prioritaria_deve_ter_tamanho_1_quando_adicionado_um_elemento(self, fila):
+    def test_deve_ter_tamanho_1_quando_adicionado_um_elemento(self, fila):
         fila.atualiza_fila()
         assert fila.tamanho == 1
 
-    def test_fila_prioritaria_devendo_ter_tamanho_2_quando_adicionados_dois_elementos(self, fila):
+    def test_devendo_ter_tamanho_2_quando_adicionados_dois_elementos(
+            self, fila):
         fila.atualiza_fila()
         fila.atualiza_fila()
         assert fila.tamanho == 2
 
-    def test_fila_prioritaria_deve_reciclar_senhas_apos_o_numero_maximo_de_senhas_ser_atingido(self, fila):
+    def test_deve_reciclar_senhas_apos_o_numero_maximo_de_senhas_ser_atingido(
+            self, fila):
         senha: str = ""
         ultimo_caixa: int = 0
 
@@ -32,9 +34,10 @@ class TestFilaPrioritaria:
             senha = fila.chama_cliente(i)
             ultimo_caixa = i
 
-        assert senha == f"Cliente atual: PR1, dirija-se ao caixa: {ultimo_caixa}"
+        assert senha == (f"Cliente atual: PR1, dirija-se ao caixa: "
+                         f"{ultimo_caixa}")
 
-    def test_fila_prioritaria_deve_chamar_1_cliente_com_primeira_senha_da_fila(self, fila):
+    def test_deve_chamar_1_cliente_com_primeira_senha_da_fila(self, fila):
         fila.atualiza_fila()
         fila.atualiza_fila()
         fila.atualiza_fila()
@@ -43,7 +46,8 @@ class TestFilaPrioritaria:
 
         assert chamado == "Cliente atual: PR1, dirija-se ao caixa: 10"
 
-    def test_fila_prioritaria_deve_chamar_2_clientes_com_as_duas_primeiras_senhas_da_fila(self, fila):
+    def test_deve_chamar_2_clientes_com_as_duas_primeiras_senhas_da_fila(
+            self, fila):
         fila.atualiza_fila()
         fila.atualiza_fila()
         fila.atualiza_fila()
@@ -54,7 +58,8 @@ class TestFilaPrioritaria:
         assert chamado1 == "Cliente atual: PR1, dirija-se ao caixa: 10"
         assert chamado2 == "Cliente atual: PR2, dirija-se ao caixa: 1"
 
-    def test_fila_prioritaria_deve_ter_tamanho_0_quando_todos_os_clientes_foram_atendidos(self, fila):
+    def test_deve_ter_tamanho_0_quando_todos_os_clientes_foram_atendidos(
+            self, fila):
         fila.atualiza_fila()
         fila.atualiza_fila()
         fila.atualiza_fila()
@@ -65,7 +70,7 @@ class TestFilaPrioritaria:
 
         assert fila.tamanho == 0
 
-    def test_fila_prioritaria_deve_mostrar_estatisticas_detalhadas(self, fila: FilaPrioritaria):
+    def test_deve_mostrar_estatisticas_detalhadas(self, fila: FilaPrioritaria):
         fila.atualiza_fila()
         fila.atualiza_fila()
         fila.atualiza_fila()
@@ -85,7 +90,7 @@ class TestFilaPrioritaria:
 
         assert estatisticas == estatistica_esperada
 
-    def test_fila_prioritaria_deve_mostrar_estatisticas_resumidas(self, fila: FilaPrioritaria):
+    def test_deve_mostrar_estatisticas_resumidas(self, fila: FilaPrioritaria):
         fila.atualiza_fila()
         fila.atualiza_fila()
         fila.atualiza_fila()

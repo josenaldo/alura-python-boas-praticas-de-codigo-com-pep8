@@ -2,6 +2,11 @@ from typing import Dict, Any
 
 import pytest
 
+from src.constantes import (
+    CODIGO_NORMAL,
+    TAMANHO_PADRAO_MINIMO,
+    TAMANHO_PADRAO_MAXIMO,
+)
 from src.fila_normal import FilaNormal
 
 
@@ -29,13 +34,13 @@ class TestFilaNormal:
         senha: str = ""
         ultimo_caixa: int = 0
 
-        for i in range(0, FilaNormal.TAMANHO_MAXIMO_DA_FILA + 1):
+        for i in range(TAMANHO_PADRAO_MINIMO, TAMANHO_PADRAO_MAXIMO + 1):
             fila.atualiza_fila()
             senha = fila.chama_cliente(i)
             ultimo_caixa = i
 
-        assert senha == (f"Cliente atual: NM1, dirija-se ao caixa: "
-                         f"{ultimo_caixa}")
+        assert senha == (f"Cliente atual: {fila.cliente_atual}, "
+                         f"dirija-se ao caixa: {ultimo_caixa}")
 
     def test_deve_chamar_1_cliente_com_primeira_senha_da_fila(
             self, fila):
@@ -45,7 +50,8 @@ class TestFilaNormal:
 
         chamado = fila.chama_cliente(10)
 
-        assert chamado == "Cliente atual: NM1, dirija-se ao caixa: 10"
+        assert chamado == f"Cliente atual: {fila.cliente_atual}, " \
+                          f"dirija-se ao caixa: 10"
 
     def test_deve_chamar_2_clientes_com_as_duas_primeiras_senhas_da_fila(
             self, fila):
@@ -54,10 +60,16 @@ class TestFilaNormal:
         fila.atualiza_fila()
 
         chamado1 = fila.chama_cliente(10)
-        chamado2 = fila.chama_cliente(1)
+        cliente_atual_1: str = fila.cliente_atual
 
-        assert chamado1 == "Cliente atual: NM1, dirija-se ao caixa: 10"
-        assert chamado2 == "Cliente atual: NM2, dirija-se ao caixa: 1"
+        chamado2 = fila.chama_cliente(1)
+        cliente_atual_2: str = fila.cliente_atual
+
+        assert chamado1 == (f"Cliente atual: {cliente_atual_1}, "
+                            f"dirija-se ao caixa: 10")
+
+        assert chamado2 == (f"Cliente atual: {cliente_atual_2}, "
+                            f"dirija-se ao caixa: 1")
 
     def test_deve_ter_tamanho_0_quando_todos_os_clientes_foram_atendidos(
             self, fila):
@@ -85,7 +97,11 @@ class TestFilaNormal:
         estatistica_esperada: Dict[str, Any] = {
             "dia": "10/01/1993",
             "agencia": 198,
-            "clientes_atendidos": ["NM1", "NM2", "NM3"],
+            "clientes_atendidos": [
+                f"{CODIGO_NORMAL}{TAMANHO_PADRAO_MINIMO}",
+                f"{CODIGO_NORMAL}{TAMANHO_PADRAO_MINIMO + 1}",
+                f"{CODIGO_NORMAL}{TAMANHO_PADRAO_MINIMO + 2}"
+            ],
             "quantidade_clientes_atendidos": 3,
         }
 

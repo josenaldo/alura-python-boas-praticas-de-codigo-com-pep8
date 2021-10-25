@@ -1,4 +1,5 @@
 from src.fila_base import FilaBase
+from src.constantes import CODIGO_PRIORITARIO
 
 
 class FilaPrioritaria(FilaBase):
@@ -6,10 +7,7 @@ class FilaPrioritaria(FilaBase):
     de prioridade
     """
 
-    TAMANHO_MAXIMO_DA_FILA = 200
+    def _obtem_prefixo(self) -> str:
+        """ Retorna o prefixo da fila """
 
-    def gera_senha_atual(self) -> None:
-        self._senha_atual = f"PR{self._codigo}"
-
-    def _tamanho_maximo_da_fila(self) -> int:
-        return FilaPrioritaria.TAMANHO_MAXIMO_DA_FILA
+        return CODIGO_PRIORITARIO

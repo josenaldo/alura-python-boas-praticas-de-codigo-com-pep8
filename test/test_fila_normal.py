@@ -1,3 +1,5 @@
+from typing import Dict, Any
+
 import pytest
 
 from src.fila_normal import FilaNormal
@@ -59,3 +61,38 @@ class TestFilaNormal:
         fila.chama_cliente(5)
 
         assert fila.tamanho == 0
+
+    def test_fila_normal_deve_mostrar_estatisticas_detalhadas(self, fila: FilaNormal):
+        fila.atualiza_fila()
+        fila.atualiza_fila()
+        fila.atualiza_fila()
+
+        fila.chama_cliente(10)
+        fila.chama_cliente(1)
+        fila.chama_cliente(5)
+
+        estatisticas = fila.estatistica("10/01/1993", 198, "detail")
+
+        estatistica_esperada: Dict[str, Any] = {
+            "dia": "10/01/1993",
+            "agencia": 198,
+            "clientes_atendidos": ["NM1", "NM2", "NM3"],
+            "quantidade_clientes_atendidos": 3,
+        }
+
+        assert estatisticas == estatistica_esperada
+
+    def test_fila_normal_deve_mostrar_estatisticas_resumidas(self, fila: FilaNormal):
+        fila.atualiza_fila()
+        fila.atualiza_fila()
+        fila.atualiza_fila()
+
+        fila.chama_cliente(10)
+        fila.chama_cliente(1)
+        fila.chama_cliente(5)
+
+        estatisticas = fila.estatistica("10/01/1993", 198, "resumidas")
+
+        estatistica_esperada = {"198-10/01/1993": 3}
+
+        assert estatisticas == estatistica_esperada

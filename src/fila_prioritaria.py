@@ -19,7 +19,7 @@ class FilaPrioritaria:
 
     def reseta_fila(self) -> None:
         if self.codigo >= 100:
-            self.codigo = 0
+            self.codigo = 1
         else:
             self.codigo += 1
 
@@ -39,7 +39,7 @@ class FilaPrioritaria:
         if flag != "detail":
             estatistica[f"{agencia}-{dia}"] = len(self.clientes_atendidos)
         else:
-            estatistica["dia"] = dia,
+            estatistica["dia"] = dia
             estatistica["agencia"] = agencia
             estatistica["clientes_atendidos"] = self.clientes_atendidos
             estatistica["quantidade_clientes_atendidos"] = \

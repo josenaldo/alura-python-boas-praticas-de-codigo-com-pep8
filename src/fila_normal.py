@@ -9,12 +9,16 @@ class FilaNormal:
         self.clientes_atendidos: List[str] = []
         self.senha_atual: str = ""
 
+    @property
+    def tamanho(self):
+        return len(self.fila)
+
     def gera_senha_atual(self) -> None:
         self.senha_atual = f"NM{self.codigo}"
 
     def reseta_fila(self) -> None:
         if self.codigo >= 100:
-            self.codigo = 0
+            self.codigo = 1
         else:
             self.codigo += 1
 

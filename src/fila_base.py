@@ -1,8 +1,8 @@
-from abc import abstractmethod, ABCMeta
+from abc import abstractmethod, ABC
 from typing import Dict, Any
 
 
-class FilaBase(metaclass=ABCMeta):
+class FilaBase(ABC):
     """Fila base"""
 
     def __init__(self):

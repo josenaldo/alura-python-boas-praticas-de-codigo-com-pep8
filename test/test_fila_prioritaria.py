@@ -24,12 +24,15 @@ class TestFilaPrioritaria:
         assert fila.tamanho == 2
 
     def test_fila_prioritaria_deve_reciclar_senhas_apos_o_numero_maximo_de_senhas_ser_atingido(self, fila):
-        senha = None
-        for i in range(0, 101):
+        senha: str = ""
+        ultimo_caixa: int = 0
+
+        for i in range(0, FilaPrioritaria.TAMANHO_MAXIMO_DA_FILA + 1):
             fila.atualiza_fila()
             senha = fila.chama_cliente(i)
+            ultimo_caixa = i
 
-        assert senha == "Cliente atual: PR1, dirija-se ao caixa: 100"
+        assert senha == f"Cliente atual: PR1, dirija-se ao caixa: {ultimo_caixa}"
 
     def test_fila_prioritaria_deve_chamar_1_cliente_com_primeira_senha_da_fila(self, fila):
         fila.atualiza_fila()

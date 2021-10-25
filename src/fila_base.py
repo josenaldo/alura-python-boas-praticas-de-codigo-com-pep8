@@ -19,8 +19,12 @@ class FilaBase(metaclass=ABCMeta):
     def gera_senha_atual(self) -> None:
         pass
 
+    @abstractmethod
+    def _tamanho_maximo_da_fila(self) -> int:
+        pass
+
     def reseta_fila(self) -> None:
-        if self._codigo >= 100:
+        if self._codigo >= self._tamanho_maximo_da_fila():
             self._codigo = 1
         else:
             self._codigo += 1

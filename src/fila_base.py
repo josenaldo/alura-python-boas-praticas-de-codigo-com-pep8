@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from typing import Dict, Any, List, Type
+from typing import Dict, Any, List
 
 from estatistica import Estatistica
 from src.constantes import TAMANHO_PADRAO_MINIMO, TAMANHO_PADRAO_MAXIMO
@@ -52,14 +52,5 @@ class FilaBase(ABC):
         return (f"Cliente atual: {self.__cliente_atual}, "
                 f"dirija-se ao caixa: {caixa}")
 
-    def estatistica(
-            self, dia:
-            str, agencia:
-            int, estatistica: Type[Estatistica]
-    ) -> Dict[str, Any]:
-
-        gerador_de_estatistica = estatistica(dia, agencia)
-
-        return gerador_de_estatistica.gera_estatistica(
-            self.__clientes_atendidos
-        )
+    def estatistica(self, estatistica: Estatistica) -> Dict[str, Any]:
+        return estatistica.gera_estatistica(self.__clientes_atendidos)

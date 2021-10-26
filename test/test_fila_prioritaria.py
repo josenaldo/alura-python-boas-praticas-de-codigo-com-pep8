@@ -93,8 +93,8 @@ class TestFilaPrioritaria:
         fila.chama_cliente(1)
         fila.chama_cliente(5)
 
-        estatisticas = fila.estatistica(
-            "10/01/1993", 198, EstatisticaDetalhada)
+        estatistica_detalhada = EstatisticaDetalhada("10/01/1993", 198)
+        estatisticas = fila.estatistica(estatistica_detalhada)
 
         estatistica_esperada: Dict[str, Any] = {
             "dia": "10/01/1993",
@@ -117,7 +117,8 @@ class TestFilaPrioritaria:
         fila.chama_cliente(1)
         fila.chama_cliente(5)
 
-        estatisticas = fila.estatistica("10/01/1993", 198, EstatisticaResumida)
+        estatistica_resumida = EstatisticaResumida("10/01/1993", 198)
+        estatisticas = fila.estatistica(estatistica_resumida)
 
         estatistica_esperada = {"198-10/01/1993": 3}
 

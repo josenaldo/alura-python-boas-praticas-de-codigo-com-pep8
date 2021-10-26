@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 from src.constantes import TAMANHO_PADRAO_MINIMO, TAMANHO_PADRAO_MAXIMO
 
@@ -8,25 +8,25 @@ class FilaBase(ABC):
     """Fila base"""
 
     def __init__(self):
-        self.__fila: list = []
-        self.__clientes_atendidos: list = []
+        self.__fila: List[str] = []
+        self.__clientes_atendidos: List[str] = []
         self._codigo: int = TAMANHO_PADRAO_MINIMO
         self._ultima_senha_gerada: str = ""
         self.__cliente_atual: str = ""
 
     @property
-    def tamanho(self):
+    def tamanho(self) -> int:
         return len(self.__fila)
 
     @property
-    def cliente_atual(self):
+    def cliente_atual(self) -> str:
         return self.__cliente_atual
 
     @abstractmethod
     def _obtem_prefixo(self) -> str:
         pass
 
-    def _usa_codigo(self):
+    def _usa_codigo(self) -> int:
         cod: int = self._codigo
         self._codigo += 1
         return cod
@@ -51,7 +51,7 @@ class FilaBase(ABC):
         return (f"Cliente atual: {self.__cliente_atual}, "
                 f"dirija-se ao caixa: {caixa}")
 
-    def estatistica(self, dia: str, agencia: int, flag: str):
+    def estatistica(self, dia: str, agencia: int, flag: str) -> Dict[str, Any]:
         estatistica: Dict[str, Any] = {}
 
         if flag != "detail":

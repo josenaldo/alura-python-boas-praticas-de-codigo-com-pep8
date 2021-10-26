@@ -2,6 +2,7 @@ from typing import Dict, Any
 
 import pytest
 
+from estatistica import EstatisticaDetalhada, EstatisticaResumida
 from src.constantes import (
     CODIGO_NORMAL,
     TAMANHO_PADRAO_MINIMO,
@@ -92,9 +93,10 @@ class TestFilaNormal:
         fila.chama_cliente(1)
         fila.chama_cliente(5)
 
-        estatisticas = fila.estatistica("10/01/1993", 198, "detail")
+        estatisticas = fila.estatistica(
+            "10/01/1993", 198, EstatisticaDetalhada)
 
-        estatistica_esperada: Dict[str, Any] = {
+        estatisticas_esperada: Dict[str, Any] = {
             "dia": "10/01/1993",
             "agencia": 198,
             "clientes_atendidos": [
@@ -105,7 +107,7 @@ class TestFilaNormal:
             "quantidade_clientes_atendidos": 3,
         }
 
-        assert estatisticas == estatistica_esperada
+        assert estatisticas == estatisticas_esperada
 
     def test_deve_mostrar_estatisticas_resumidas(self, fila: FilaNormal):
         fila.atualiza_fila()
@@ -116,7 +118,8 @@ class TestFilaNormal:
         fila.chama_cliente(1)
         fila.chama_cliente(5)
 
-        estatisticas = fila.estatistica("10/01/1993", 198, "resumidas")
+        estatisticas = fila.estatistica(
+            "10/01/1993", 198, EstatisticaResumida)
 
         estatistica_esperada = {"198-10/01/1993": 3}
 

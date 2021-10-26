@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABC
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Type
 
+from estatistica import Estatistica
 from src.constantes import TAMANHO_PADRAO_MINIMO, TAMANHO_PADRAO_MAXIMO
 
 
@@ -34,7 +35,7 @@ class FilaBase(ABC):
     def _gera_senha_atual(self) -> None:
         prefixo = self._obtem_prefixo()
         codigo = self._usa_codigo()
-        self._ultima_senha_gerada = (f"{prefixo}{codigo}")
+        self._ultima_senha_gerada = f"{prefixo}{codigo}"
 
     def _reseta_fila(self) -> None:
         if self._codigo >= TAMANHO_PADRAO_MAXIMO:
@@ -51,16 +52,14 @@ class FilaBase(ABC):
         return (f"Cliente atual: {self.__cliente_atual}, "
                 f"dirija-se ao caixa: {caixa}")
 
-    def estatistica(self, dia: str, agencia: int, flag: str) -> Dict[str, Any]:
-        estatistica: Dict[str, Any] = {}
+    def estatistica(
+            self, dia:
+            str, agencia:
+            int, estatistica: Type[Estatistica]
+    ) -> Dict[str, Any]:
 
-        if flag != "detail":
-            estatistica[f"{agencia}-{dia}"] = len(self.__clientes_atendidos)
-        else:
-            estatistica["dia"] = dia
-            estatistica["agencia"] = agencia
-            estatistica["clientes_atendidos"] = self.__clientes_atendidos
-            estatistica["quantidade_clientes_atendidos"] = \
-                len(self.__clientes_atendidos)
+        gerador_de_estatistica = estatistica(dia, agencia)
 
-        return estatistica
+        return gerador_de_estatistica.gera_estatistica(
+            self.__clientes_atendidos
+        )

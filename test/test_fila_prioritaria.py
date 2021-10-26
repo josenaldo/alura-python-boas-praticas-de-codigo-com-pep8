@@ -2,6 +2,7 @@ from typing import Dict, Any
 
 import pytest
 
+from estatistica import EstatisticaDetalhada, EstatisticaResumida
 from src.constantes import (
     TAMANHO_PADRAO_MAXIMO,
     TAMANHO_PADRAO_MINIMO,
@@ -92,7 +93,8 @@ class TestFilaPrioritaria:
         fila.chama_cliente(1)
         fila.chama_cliente(5)
 
-        estatisticas = fila.estatistica("10/01/1993", 198, "detail")
+        estatisticas = fila.estatistica(
+            "10/01/1993", 198, EstatisticaDetalhada)
 
         estatistica_esperada: Dict[str, Any] = {
             "dia": "10/01/1993",
@@ -115,7 +117,7 @@ class TestFilaPrioritaria:
         fila.chama_cliente(1)
         fila.chama_cliente(5)
 
-        estatisticas = fila.estatistica("10/01/1993", 198, "resumidas")
+        estatisticas = fila.estatistica("10/01/1993", 198, EstatisticaResumida)
 
         estatistica_esperada = {"198-10/01/1993": 3}
 

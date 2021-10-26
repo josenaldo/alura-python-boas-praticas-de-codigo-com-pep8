@@ -1,5 +1,6 @@
 from abc import abstractmethod, ABC
 from typing import Dict, Any
+
 from src.constantes import TAMANHO_PADRAO_MINIMO, TAMANHO_PADRAO_MAXIMO
 
 
